@@ -1,0 +1,6 @@
+# Bonozo .gitattributes v1.0.131115
+# Normalise line endings.
+* text=auto
+
+# Allow language specific diffs.
+*.cs diff=csharp
