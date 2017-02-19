@@ -1,6 +1,7 @@
 
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Demo : MonoBehaviour 
 {
@@ -33,6 +34,8 @@ public class Demo : MonoBehaviour
     // Go to this page for registration: http://dev.twitter.com/apps/new
     public string CONSUMER_KEY;
     public string CONSUMER_SECRET;
+
+    public InputField hashtag;
 
     // You need to save access token and secret for later use.
     // You can keep using them whenever you need to access the user's Twitter account. 
@@ -136,15 +139,6 @@ public class Demo : MonoBehaviour
             StartCoroutine(Twitter.API.PostTweet(m_Tweet, CONSUMER_KEY, CONSUMER_SECRET, m_AccessTokenResponse,
                            new Twitter.PostTweetCallback(this.OnPostTweet)));
         }
-
-        rect.y = Screen.height * POST_TWEET_Y + 50; // [hack]
-        if (GUI.Button(rect, "Get Timeline"))
-        {
-            //Twitter.API.GetTinyTimeline(CONSUMER_KEY, CONSUMER_SECRET, m_AccessTokenResponse);
-
-            StartCoroutine(Twitter.API.GetTimeline(m_Tweet, CONSUMER_KEY, CONSUMER_SECRET, m_AccessTokenResponse,
-                           new Twitter.GetTimelineCallback(this.OnGetTimeline)));
-        }
     }
 
 
@@ -219,8 +213,22 @@ public class Demo : MonoBehaviour
         print("OnPostTweet - " + (success ? "succedded." : "failed."));
     }
 
-    void OnGetTimeline(bool success)
+    void OnGetHashtag(bool success)
     {
-        print("OnGetTimeline - " + (success ? "succedded." : "failed."));
+        print("OnGetHashtag - " + (success ? "SUCCESS" : "FAIL"));
+    }
+
+    public void StartGetHashtag()
+    {
+        string text = hashtag.text;
+
+        if( string.IsNullOrEmpty(text) )
+        {
+            Debug.LogWarning("StartGetHashtag: no hashtag.");
+            return;
+        }
+
+        StartCoroutine(Twitter.API.GetHashtag(hashtag.text, CONSUMER_KEY, CONSUMER_SECRET, m_AccessTokenResponse,
+                       new Twitter.GetTimelineCallback(this.OnGetHashtag)));
     }
 }
