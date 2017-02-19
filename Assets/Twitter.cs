@@ -254,7 +254,7 @@ namespace Twitter
         private const string GetTimelineURL = "https://api.twitter.com/1.1/statuses/home_timeline.json";
 
 
-        public static IEnumerator GetHashtag(string hashtag, string consumerKey, string consumerSecret, AccessTokenResponse response, GetTimelineCallback callback)
+        public static IEnumerator GetHashtag(string hashtag, int num, string consumerKey, string consumerSecret, AccessTokenResponse response, GetTimelineCallback callback)
         {
             /*
                         if (string.IsNullOrEmpty(text) || text.Length > 140)
@@ -291,7 +291,7 @@ namespace Twitter
                 Dictionary<string, string> parameters = new Dictionary<string, string>();
 
                 //these might have to be sorted alphabetically, with 'q' at the end...
-                parameters.Add("count", "20");
+                parameters.Add("count", num.ToString());
                 parameters.Add("lang", "en");
                 parameters.Add("q", hashtag);
 

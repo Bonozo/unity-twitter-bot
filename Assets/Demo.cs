@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System;
 
 public class Demo : MonoBehaviour 
 {
@@ -36,6 +37,7 @@ public class Demo : MonoBehaviour
     public string CONSUMER_SECRET;
 
     public InputField hashtag;
+    public InputField hashtagNum;
 
     // You need to save access token and secret for later use.
     // You can keep using them whenever you need to access the user's Twitter account. 
@@ -228,7 +230,15 @@ public class Demo : MonoBehaviour
             return;
         }
 
-        StartCoroutine(Twitter.API.GetHashtag(hashtag.text, CONSUMER_KEY, CONSUMER_SECRET, m_AccessTokenResponse,
+        int num = Convert.ToInt32( hashtagNum.text );
+
+        if( num < 1 )
+        {
+            Debug.LogWarning("StartGetHashtag: how many to get?");
+            return;
+        }
+
+        StartCoroutine(Twitter.API.GetHashtag(hashtag.text, num, CONSUMER_KEY, CONSUMER_SECRET, m_AccessTokenResponse,
                        new Twitter.GetTimelineCallback(this.OnGetHashtag)));
     }
 }
