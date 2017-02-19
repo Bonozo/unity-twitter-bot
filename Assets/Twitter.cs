@@ -292,7 +292,7 @@ namespace Twitter
 
                 //these might have to be sorted alphabetically, with 'q' at the end...
                 parameters.Add("count", num.ToString());
-                parameters.Add("lang", "en");
+                //parameters.Add("lang", "en");// NOTE: OPTIONAL
                 parameters.Add("q", hashtag);
 
 
@@ -353,8 +353,7 @@ namespace Twitter
 
 
                 var tweets = JSON.Parse(web.text);
-                //Debug.Log("# of Tweets: " + tweets.Length);
-                Debug.Log("# of Tweets: " + tweets.Count);
+
                 Debug.Log("# of Tweets: " + tweets["statuses"].Count);
                 for (int i=0; i< tweets["statuses"].Count; i++)
                 {
